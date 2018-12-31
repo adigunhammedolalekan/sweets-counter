@@ -132,8 +132,8 @@
                 android:layout_height="match_parent"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:text="@={viewmodel.enteredValue}"
-                android:cursorVisible="false"/>
+                android:maxLength="5"
+                android:text="@={viewmodel.enteredValue}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -145,6 +145,7 @@
             android:onCheckedChanged="@{() -> viewmodel.toggleMeasureUnit()}"
             android:orientation="vertical"
             android:paddingBottom="@dimen/margin_padding_size_large"
+            android:layout_marginEnd="@dimen/margin_padding_size_xxxlarge"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_sweet_title">
 

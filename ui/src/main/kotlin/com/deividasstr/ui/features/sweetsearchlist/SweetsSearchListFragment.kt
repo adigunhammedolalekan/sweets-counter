@@ -14,7 +14,6 @@ import com.deividasstr.ui.base.framework.base.BaseActivity
 import com.deividasstr.ui.base.framework.base.BaseFragment
 import com.deividasstr.ui.base.framework.extensions.closeKeyboard
 import com.deividasstr.ui.base.framework.extensions.observe
-import com.deividasstr.ui.base.framework.extensions.openKeyboard
 import com.deividasstr.ui.base.framework.sharedelements.HasSharedElements
 import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.databinding.FragmentSweetSearchListBinding
@@ -38,17 +37,6 @@ class SweetsSearchListFragment :
         observe(viewModel.sweets, ::renderSweetsList)
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding.sweetsSearchView.requestFocus()
-        binding.sweetsSearchView.openKeyboard()
-    }
-
-    override fun onPause() {
-        binding.sweetsSearchView.closeKeyboard()
-        super.onPause()
-    }
-
     private fun initRecycler() {
         with(binding) {
             sweetsRecycler.setHasFixedSize(true)
@@ -62,6 +50,7 @@ class SweetsSearchListFragment :
 
     private fun renderSweetsList(sweets: PagedList<SweetUi>?) {
         if (sweets != null && sweets.isEmpty() && viewModel.query.isEmpty()) {
+            binding.sweetsSearchView.closeKeyboard()
             (activity as BaseActivity).alert(R.string.no_sweets_available)
         } else {
             adapter.submitList(sweets)
